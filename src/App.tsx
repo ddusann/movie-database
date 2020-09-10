@@ -18,7 +18,7 @@ function App() {
   const compose = composeWithDevTools({});
   const middlewares = [routerMiddleware(history)];
   const enhancers = [applyMiddleware(...middlewares)];
-  const store = createStore(() => rootReducer(history), compose(...enhancers));
+  const store = createStore(rootReducer(history), compose(...enhancers));
 
   return (
     <Provider store={store}>

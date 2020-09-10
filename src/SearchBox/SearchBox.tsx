@@ -1,11 +1,23 @@
+import * as actions from "./actions";
+
+import React, { ChangeEvent, useCallback } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
-import React from 'react';
+import { RootState } from "../rootReducer";
 import TextField from "@material-ui/core/TextField";
 import useStyles from "./styles";
 
 function SearchBox() {
   const styles = useStyles();
+
+  const dispatch = useDispatch();
+  const movieName = useSelector((state: RootState) => state.searchBox?.movieName || "");
+  const updateMovieName = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => dispatch(actions.setMovieName(event.target.value)),
+    [dispatch]
+  );
 
   return (
     <Box className={styles.searchBox}>
@@ -14,6 +26,8 @@ function SearchBox() {
         fullWidth
         label="Movie Name"
         placeholder="Enter the name of the movie"
+        value={movieName}
+        onChange={updateMovieName}
       />
       <Button className="search-button" variant="contained">Search</Button>
     </Box>
