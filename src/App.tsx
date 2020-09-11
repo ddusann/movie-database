@@ -7,7 +7,9 @@ import SearchBox from "./SearchBox";
 import Title from "./Title";
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { createBrowserHistory } from 'history';
+import createSagaMiddleware from "redux-saga";
 import rootReducer from "./rootReducer";
+import rootSaga from "./rootSaga";
 import { routerMiddleware } from "connected-react-router";
 import useStyles from "./styles";
 
@@ -16,9 +18,12 @@ function App() {
 
   const history = createBrowserHistory();
   const compose = composeWithDevTools({});
-  const middlewares = [routerMiddleware(history)];
+  const sagaMiddleware = createSagaMiddleware();
+  const middlewares = [routerMiddleware(history), sagaMiddleware];
   const enhancers = [applyMiddleware(...middlewares)];
   const store = createStore(rootReducer(history), compose(...enhancers));
+
+  sagaMiddleware.run(rootSaga);
 
   return (
     <Provider store={store}>

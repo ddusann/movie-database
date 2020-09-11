@@ -18,6 +18,9 @@ function SearchBox() {
     (event: ChangeEvent<HTMLInputElement>) => dispatch(actions.setMovieName(event.target.value)),
     [dispatch]
   );
+  const handleSearchClick = useCallback(() => {
+    dispatch(actions.searchRequired(movieName));
+  }, [dispatch, movieName]);
 
   return (
     <Box className={styles.searchBox}>
@@ -29,7 +32,7 @@ function SearchBox() {
         value={movieName}
         onChange={updateMovieName}
       />
-      <Button className="search-button" variant="contained">Search</Button>
+      <Button className="search-button" variant="contained" onClick={handleSearchClick}>Search</Button>
     </Box>
   );
 }
