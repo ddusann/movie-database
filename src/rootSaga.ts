@@ -1,15 +1,17 @@
-import { call, takeEvery } from 'redux-saga/effects'
+import { call, put, takeEvery } from 'redux-saga/effects'
 
 import { Action } from "redux-act";
-import { actions } from "./SearchBox";
 import { getListOfMovies } from "./api";
+import { actions as movieListActions } from "./MovieList";
+import { actions as searchBoxActions } from "./SearchBox";
 
 function* handleSearchRequirement (action: Action<string>) {
-    yield call(getListOfMovies, action.payload);
+    const movieList = yield call(getListOfMovies, action.payload);
+    yield put({ type: movieListActions.setMovieList.getType(), payload: movieList });
 }
 
 function* rootSaga() {
-    yield takeEvery(actions.searchRequired.getType(), handleSearchRequirement)
+    yield takeEvery(searchBoxActions.searchRequired.getType(), handleSearchRequirement)
 }
 
 export default rootSaga;

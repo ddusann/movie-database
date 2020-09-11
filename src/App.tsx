@@ -1,6 +1,7 @@
 import { applyMiddleware, createStore } from 'redux';
 
 import Container from "@material-ui/core/Container";
+import MovieList from "./MovieList";
 import { Provider } from 'react-redux';
 import React from 'react';
 import SearchBox from "./SearchBox";
@@ -30,6 +31,7 @@ function App() {
       <Container className={styles.rootContainer} maxWidth="xl">
         <Title />
         <SearchBox />
+        <MovieList />
       </Container>
     </Provider>
   );
