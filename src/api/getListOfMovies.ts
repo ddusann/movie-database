@@ -7,22 +7,32 @@ interface MovieItem {
 
 interface ResponseData {
     Search: MovieItem[];
+    totalResults: number;
 }
 
-const getListOfMovies = async (filter: string) => {
+const DEFAULT_ITEMS_PER_PAGE = 10
+
+const getListOfMovies = async (filter: string, page: number) => {
     if (filter.length === 0) {
         return [];
     }
 
-    return fetch(`http://omdbapi.com/?apikey=${API_KEY}&s=${filter}`).then((data) => {
+    return fetch(`http://omdbapi.com/?apikey=${API_KEY}&s=${filter}&page=${page}`).then((data) => {
         return data.json();
     }).then((data: ResponseData) => {
-        return (data?.Search ?? []).map((item) => ({
+        const list = (data?.Search ?? []).map((item) => ({
             id: item.imdbID,
             name: item.Title
         }));
+        return {
+            list,
+            totalCount: Math.ceil(data.totalResults / DEFAULT_ITEMS_PER_PAGE)
+        };
     }).catch(() => {
-        return [];
+        return {
+            list: [],
+            totalCount: 0
+        };
     });
 }
 

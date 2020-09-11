@@ -7,6 +7,7 @@ import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import { RootState } from "../rootReducer";
 import TextField from "@material-ui/core/TextField";
+import { actions as movieListActions } from "../MovieList";
 import useStyles from "./styles";
 
 function SearchBox() {
@@ -19,7 +20,7 @@ function SearchBox() {
     [dispatch]
   );
   const handleSearchClick = useCallback(() => {
-    dispatch(actions.searchRequired(movieName));
+    dispatch(movieListActions.searchRequired({ name: movieName, page: 1 }));
   }, [dispatch, movieName]);
 
   return (

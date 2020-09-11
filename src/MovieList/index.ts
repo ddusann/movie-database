@@ -6,3 +6,4 @@ export { default as reducer } from "./reducer";
 export { actions };
 
 export type { State } from "./reducer";
+export type { MovieSearchRequirement } from "./actions";
