@@ -15,11 +15,13 @@ function MovieList() {
   const dispatch = useDispatch();
 
   const movieName = useSelector((state: RootState) => state.searchBox.movieName);
+  const isLoading = useSelector((state: RootState) => state.movieList.loading);
   const movieList = useSelector((state: RootState) => state.movieList.movies);
   const totalPagesCount = useSelector((state: RootState) => state.movieList.totalCount);
 
   const handlePageChange = useCallback((event: React.ChangeEvent<unknown>, page: number) => {
     dispatch(actions.searchRequired({ name: movieName, page }));
+    dispatch(actions.setLoading(true));
   }, [dispatch, movieName]);
 
   return (
@@ -33,7 +35,7 @@ function MovieList() {
         ))}
       </List>
       {totalPagesCount > 1 && (
-        <Pagination count={totalPagesCount} onChange={handlePageChange} />
+        <Pagination count={totalPagesCount} disabled={isLoading} onChange={handlePageChange} />
       )}
     </Box>
   );

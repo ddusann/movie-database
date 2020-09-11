@@ -14,13 +14,15 @@ function SearchBox() {
   const styles = useStyles();
 
   const dispatch = useDispatch();
-  const movieName = useSelector((state: RootState) => state.searchBox?.movieName || "");
+  const movieName = useSelector((state: RootState) => state.searchBox.movieName);
+  const isLoading = useSelector((state: RootState) => state.movieList.loading);
   const updateMovieName = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => dispatch(actions.setMovieName(event.target.value)),
     [dispatch]
   );
   const handleSearchClick = useCallback(() => {
     dispatch(movieListActions.searchRequired({ name: movieName, page: 1 }));
+    dispatch(movieListActions.setLoading(true));
   }, [dispatch, movieName]);
 
   return (
@@ -33,7 +35,14 @@ function SearchBox() {
         value={movieName}
         onChange={updateMovieName}
       />
-      <Button className="search-button" variant="contained" onClick={handleSearchClick}>Search</Button>
+      <Button
+        className="search-button"
+        variant="contained"
+        onClick={handleSearchClick}
+        disabled={isLoading}
+      >
+        Search
+      </Button>
     </Box>
   );
 }

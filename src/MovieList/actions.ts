@@ -17,3 +17,4 @@ export interface MovieSearchRequirement {
 
 export const setMovieList = actions<MovieList>('MovieList/SET_LIST');
 export const searchRequired = actions<MovieSearchRequirement>('MovieList/SEARCH_REQUIRED');
+export const setLoading = actions<boolean>('MovieList/SET_LOADING');

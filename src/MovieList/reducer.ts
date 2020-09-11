@@ -7,12 +7,14 @@ export interface State {
     movies: Movie[];
     totalCount: number;
     currentPage: number;
+    loading: boolean;
 }
 
 const defaultState: State = {
     movies: [],
     totalCount: 0,
-    currentPage: 1
+    currentPage: 1,
+    loading: false
 };
 
 const reducer = createReducer<State>({}, defaultState);
@@ -23,5 +25,7 @@ reducer.on(actions.setMovieList, (state, payload): State => ({
     totalCount: payload.totalCount,
     currentPage: 1
 }));
+
+reducer.on(actions.setLoading, (state, payload): State => ({ ...state, loading: payload }));
 
 export default reducer;
