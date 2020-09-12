@@ -4,11 +4,14 @@ import Box from "@material-ui/core/Box";
 import Item from "./Item";
 import List from "@material-ui/core/List";
 import Pagination from "./Pagination";
+import type { RootState } from '../rootReducer';
 import useFavourites from "../useFavourites";
+import { useSelector } from 'react-redux';
 import useStyles from "./styles";
 
 function MovieList() {
   const styles = useStyles();
+  const currentPage = useSelector((state: RootState) => state.favouriteList.page);
 
   const favourites = useFavourites();
   const favouriteIds = favourites.getIds();
@@ -20,10 +23,12 @@ function MovieList() {
     }
   }, [favourites, favouriteIds]);
 
+  const startItemIndex = (currentPage - 1) * 10;
+
   return (
     <Box>
       <List className={styles.listItem}>
-        {favourites.getItems().map(item => (
+        {favourites.getItems().slice(startItemIndex, startItemIndex + 10).map(item => (
           <Item
             key={item.id}
             id={item.id}
