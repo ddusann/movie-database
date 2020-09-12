@@ -1,4 +1,4 @@
-import { createAction as actions } from 'redux-act';
+import { createAction as movieListActions } from 'redux-act';
 
 export interface Movie {
     id: string;
@@ -15,6 +15,6 @@ export interface MovieSearchRequirement {
     page: number;
 }
 
-export const setMovieList = actions<MovieList>('MovieList/SET_LIST');
-export const searchRequired = actions<MovieSearchRequirement>('MovieList/SEARCH_REQUIRED');
-export const setLoading = actions<boolean>('MovieList/SET_LOADING');
+export const setMovieList = movieListActions<MovieList>('MovieList/SET_LIST');
+export const searchRequired = movieListActions<MovieSearchRequirement>('MovieList/SEARCH_REQUIRED');
+export const setLoading = movieListActions<boolean>('MovieList/SET_LOADING');

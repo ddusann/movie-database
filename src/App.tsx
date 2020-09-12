@@ -1,4 +1,4 @@
-import { FavouritesPage, MainPage } from "./pages";
+import { DetailPage, FavouritesPage, MainPage } from "./pages";
 import { Route, Router, Switch } from 'react-router-dom';
 import { applyMiddleware, createStore } from 'redux';
 
@@ -37,6 +37,9 @@ function App() {
             </Route>
             <Route exact path="/favourites">
               <FavouritesPage />
+            </Route>
+            <Route exact path="/:id">
+              <DetailPage />
             </Route>
           </Switch>
         </Container>

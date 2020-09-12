@@ -6,7 +6,6 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Star from '@material-ui/icons/Star';
 import StarBorder from '@material-ui/icons/StarBorder';
-import { useHistory } from 'react-router-dom';
 
 interface Props {
   id: string;
@@ -16,29 +15,22 @@ interface Props {
 }
 
 const Item: React.FC<Props> = ({ id, isFavourite, name, onToggleFavourite }) => {
-  const history = useHistory();
-  
   const handleFavouriteClick = useCallback((event: { stopPropagation: CallableFunction } ) => {
     event.stopPropagation();
     onToggleFavourite(id, name);
   }, [onToggleFavourite, id, name]);
-
-  const handleItemClick = useCallback(() => {
-    history.push(`/${id}`);
-  }, [history, id]);
-
   return (
     <ListItem button>
       <ListItemIcon>
-        <Button onClick={handleFavouriteClick}>
-          {isFavourite ? (
-            <Star />
-          ) : (
-            <StarBorder />
-          )}
-        </Button>
+      <Button onClick={handleFavouriteClick}>
+        {isFavourite ? (
+          <Star />
+        ) : (
+          <StarBorder />
+        )}
+      </Button>
       </ListItemIcon>
-      <ListItemText primary={name} onClick={handleItemClick} />
+      <ListItemText primary={name} />
     </ListItem>
   );
 }
