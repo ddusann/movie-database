@@ -22,13 +22,13 @@ const Item: React.FC<Props> = ({ id, isFavourite, name, onToggleFavourite }) => 
   return (
     <ListItem button>
       <ListItemIcon>
-      <Button onClick={handleFavouriteClick}>
-        {isFavourite ? (
-          <Star />
-        ) : (
-          <StarBorder />
-        )}
-      </Button>
+        <Button onClick={handleFavouriteClick}>
+          {isFavourite ? (
+            <Star />
+          ) : (
+            <StarBorder />
+          )}
+        </Button>
       </ListItemIcon>
       <ListItemText primary={name} />
     </ListItem>

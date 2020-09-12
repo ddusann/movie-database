@@ -40,6 +40,7 @@ function SearchBox() {
         variant="contained"
         onClick={handleSearchClick}
         disabled={isLoading}
+        color="primary"
       >
         Search
       </Button>

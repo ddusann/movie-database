@@ -1,10 +1,10 @@
+import { FavouritesPage, MainPage } from "./pages";
+import { Route, Router, Switch } from 'react-router-dom';
 import { applyMiddleware, createStore } from 'redux';
 
 import Container from "@material-ui/core/Container";
-import MovieList from "./MovieList";
 import { Provider } from 'react-redux';
 import React from 'react';
-import SearchBox from "./SearchBox";
 import Title from "./Title";
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { createBrowserHistory } from 'history';
@@ -28,11 +28,19 @@ function App() {
 
   return (
     <Provider store={store}>
-      <Container className={styles.rootContainer} maxWidth="xl">
-        <Title />
-        <SearchBox />
-        <MovieList />
-      </Container>
+      <Router history={history}>
+        <Container className={styles.rootContainer} maxWidth="xl">
+          <Title />
+          <Switch>
+            <Route exact path="/">
+              <MainPage />
+            </Route>
+            <Route exact path="/favourites">
+              <FavouritesPage />
+            </Route>
+          </Switch>
+        </Container>
+      </Router>
     </Provider>
   );
 }
